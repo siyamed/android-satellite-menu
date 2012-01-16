@@ -2,8 +2,6 @@
 .DS_Store
 /local.properties
 /.settings
-/.classpath
-/.project
 /target
 /gen
 /bin
