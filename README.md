@@ -17,6 +17,7 @@ Licenced with LGPL.
 
 Add the component definition to your view xml as in the following example:
 
+
   <?xml version="1.0" encoding="utf-8"?>
   <FrameLayout 
       xmlns:android="http://schemas.android.com/apk/res/android"
@@ -40,12 +41,14 @@ Add the component definition to your view xml as in the following example:
   </FrameLayout>
 
 The attributes are:
-  `satelliteDistance` The distance of items from the center button
-  `totalSpacingDegree` The degree between the first and the last item.
-  `closeOnClick` Defines if the menu shall collapse after clicking on a menu item.
-  `expandDuration` The duration of expand and collapse operations in milliseconds.
+
+*`satelliteDistance` The distance of items from the center button
+*`totalSpacingDegree` The degree between the first and the last item.
+*`closeOnClick` Defines if the menu shall collapse after clicking on a menu item.
+*`expandDuration` The duration of expand and collapse operations in milliseconds.
 
 After defining the view in XML, some menu items can be added from code:
+
 
   SatelliteMenu menu = (SatelliteMenu) findViewById(R.id.menu);
   List<SatelliteMenuItem> items = new ArrayList<SatelliteMenuItem>();
