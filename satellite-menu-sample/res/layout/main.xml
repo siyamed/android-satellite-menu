@@ -6,11 +6,6 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/hello" />
-
     <android.view.ext.SatelliteMenu
         android:id="@+id/menu"
         android:layout_width="wrap_content"
@@ -22,4 +17,5 @@
         sat:totalSpacingDegree="90"
         sat:closeOnClick="true"
         sat:expandDuration="500"/>
+    
 </FrameLayout>

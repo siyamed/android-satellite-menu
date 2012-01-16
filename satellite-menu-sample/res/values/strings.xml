@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="hello">Hello World, RotatingActionMenuActivity!</string>
-    <string name="app_name">rotating-action-menu-sample</string>
+    <string name="hello">Satellite Menu Sample Activity</string>
+    <string name="app_name">satellite-menu-sample</string>
 
 </resources>

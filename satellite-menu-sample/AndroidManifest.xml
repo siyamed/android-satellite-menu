@@ -3,7 +3,7 @@
 
     <uses-sdk android:minSdkVersion="7"/>
 
-    <application android:debuggable="false" android:icon="@drawable/ic_launcher" android:label="@string/app_name">
+    <application android:debuggable="false" android:icon="@drawable/ic_launcher" android:label="@string/app_name" android:theme="@android:style/Theme.Light">
         <activity android:label="@string/app_name" android:name=".SatelliteMenuActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
