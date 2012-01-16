@@ -6,9 +6,13 @@ For the ones who didnt see path, the menu consists of a main button on the left 
 
 The menu uses built-in animations of Android platform. 
 
-[![](http://farm8.staticflickr.com/7014/6706236829_ca1db99eec.jpg)](http://farm8.staticflickr.com/7014/6706236829_ca1db99eec.jpg)
+[![](http://farm8.staticflickr.com/7014/6706236829_ca1db99eec.jpg)]
 
-http://farm8.staticflickr.com/7145/6706236777_cc5309e57c.jpg
+[![](http://farm8.staticflickr.com/7145/6706236777_cc5309e57c.jpg)]
+
+
+(http://farm8.staticflickr.com/7014/6706236829_ca1db99eec.jpg)
+
 
 ##Usage
 
