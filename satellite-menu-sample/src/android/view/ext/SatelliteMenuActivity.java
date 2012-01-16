@@ -5,6 +5,8 @@ import java.util.List;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.ext.SatelliteMenu.SateliteClickedListener;
 
 public class SatelliteMenuActivity extends Activity {
     
@@ -31,5 +33,12 @@ public class SatelliteMenuActivity extends Activity {
         items.add(new SatelliteMenuItem(1, R.drawable.ic_2));
 //        items.add(new SatelliteMenuItem(5, R.drawable.sat_item));
         menu.addItems(items);        
+        
+        menu.setOnItemClickedListener(new SateliteClickedListener() {
+			
+			public void eventOccured(int id) {
+				Log.i("sat", "Clicked on " + id);
+			}
+		});
     }
 }

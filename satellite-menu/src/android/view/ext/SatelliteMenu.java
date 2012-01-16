@@ -368,7 +368,7 @@ public class SatelliteMenu extends FrameLayout {
 	 * 
 	 * @param itemClickedListener
 	 */
-	public void setActionListener(SateliteClickedListener itemClickedListener) {
+	public void setOnItemClickedListener(SateliteClickedListener itemClickedListener) {
 		this.itemClickedListener = itemClickedListener;
 	}
 
