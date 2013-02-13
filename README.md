@@ -10,8 +10,7 @@ Works in API Level 7 (2.1) and above.
 
 Licenced with LGPL. 
 
-![Satellite Menu Collapsed](http://farm8.staticflickr.com/7014/6706236829_ca1db99eec.jpg) ![Satellite Menu Expanded](http://farm8.staticflickr.com/7145/6706236777_cc5309e57c.jpg)
-
+![Satellite Menu Expanded](http://i.imgur.com/0Igkktd.png)
 
 ##Usage
 
