@@ -10,7 +10,7 @@ Works in API Level 7 (2.1) and above.
 
 Licenced with LGPL. 
 
-![Satellite Menu Expanded](http://i.imgur.com/0Igkktd.png)
+<img src="http://i.imgur.com/0Igkktd.png" height="250px" title="Android Satellite Menu Expanded"/>
 
 ##Usage
 
