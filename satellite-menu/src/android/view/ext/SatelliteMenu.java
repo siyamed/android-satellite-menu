@@ -120,44 +120,107 @@ public class SatelliteMenu extends FrameLayout {
 		internalItemClickListener = new InternalSatelliteOnClickListener(this);
 	}
 
+	/**
+	 * issue:
+	 * 1,when the menu was opened,we clicked the item frequently so that the item would closed,
+	 * the issue occur:
+	 * there is no response we  click the imgMain to expand the menu again!!!!
+	 * 
+	 * http://stackoverflow.com/questions/8213089/how-to-block-and-wait-using-atomicboolean
+	 * 
+	 * there is a solution in above . includeing the final clause 
+	 * 
+	 * 
+	 *  AtomicBoolean lock = new AtomicBoolean(false);
+    	if(lock.compareAndSet(false, true)){
+        try {
+            //do something
+        } catch(Exception e){
+            //error handling
+        } finally {
+            lock.set(false);
+        	}
+    	}
+	 * 
+	 * */
+	
+	
 	private void onClick() {
 		if (plusAnimationActive.compareAndSet(false, true)) {
-			if (!rotated) {
-				imgMain.startAnimation(mainRotateLeft);
-				for (SatelliteMenuItem item : menuItems) {
-					item.getView().startAnimation(item.getOutAnimation());
+			
+			try {
+	            //do something
+				if (!rotated) {
+					imgMain.startAnimation(mainRotateLeft);
+					
+					//evan add imgMain checked image
+					//imgMain.setImageResource(R.drawable.menu_button_pressed);
+					
+					for (SatelliteMenuItem item : menuItems) {
+						item.getView().startAnimation(item.getOutAnimation());
+					}
+				} else {
+					imgMain.startAnimation(mainRotateRight);
+					
+					//evan add imgMain default image
+					//imgMain.setImageResource(R.drawable.sat_main);
+					
+					for (SatelliteMenuItem item : menuItems) {
+						item.getView().startAnimation(item.getInAnimation());
+					}
 				}
-			} else {
-				imgMain.startAnimation(mainRotateRight);
-				for (SatelliteMenuItem item : menuItems) {
-					item.getView().startAnimation(item.getInAnimation());
-				}
-			}
-			rotated = !rotated;
+				rotated = !rotated;
+	        } catch(Exception e){
+	            //error handling
+	        } finally {
+	        	plusAnimationActive.set(false);
+	        }
+			
 		}
 	}
 
 	private void openItems() {
 		if (plusAnimationActive.compareAndSet(false, true)) {
-			if (!rotated) {
-				imgMain.startAnimation(mainRotateLeft);
-				for (SatelliteMenuItem item : menuItems) {
-					item.getView().startAnimation(item.getOutAnimation());
+			try {
+	            //do something
+				if (!rotated) {
+					imgMain.startAnimation(mainRotateLeft);
+					for (SatelliteMenuItem item : menuItems) {
+						item.getView().startAnimation(item.getOutAnimation());
+					}
 				}
-			}
-			rotated = !rotated;
+				rotated = !rotated;
+	        } catch(Exception e){
+	            //error handling
+	        } finally {
+	        	plusAnimationActive.set(false);
+	        }
+			
 		}
 	}
 
 	private void closeItems() {
 		if (plusAnimationActive.compareAndSet(false, true)) {
-			if (rotated) {
-				imgMain.startAnimation(mainRotateRight);
-				for (SatelliteMenuItem item : menuItems) {
-					item.getView().startAnimation(item.getInAnimation());
+			
+			try {
+	            //do something
+				if (rotated) {
+					imgMain.startAnimation(mainRotateRight);
+					
+					//evan add imgMain default image
+					//imgMain.setImageResource(R.drawable.sat_main);
+					
+					for (SatelliteMenuItem item : menuItems) {
+						item.getView().startAnimation(item.getInAnimation());
+					}
 				}
-			}
-			rotated = !rotated;
+				rotated = !rotated;
+				
+	        } catch(Exception e){
+	            //error handling
+	        } finally {
+	        	plusAnimationActive.set(false);
+	        }
 		}
 	}
 
@@ -340,6 +403,13 @@ public class SatelliteMenu extends FrameLayout {
 
 	public Map<View, SatelliteMenuItem> getViewToItemMap() {
 		return viewToItemMap;
+	}
+	
+	/**
+	 * @return 如果展开 rotate为true
+	 */
+	public boolean getRotate(){
+		return rotated;
 	}
 	
 	private static FrameLayout.LayoutParams getLayoutParams(View view) {
