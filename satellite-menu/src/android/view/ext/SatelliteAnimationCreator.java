@@ -7,7 +7,6 @@ import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
 import android.view.animation.RotateAnimation;
 import android.view.animation.TranslateAnimation;
-import android.view.ext.R;
 
 /**
  * Factory class for creating satellite in/out animations
