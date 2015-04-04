@@ -13,11 +13,13 @@ import android.graphics.drawable.Drawable;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 /**
@@ -34,6 +36,13 @@ public class SatelliteMenu extends FrameLayout {
 	private static final float DEFAULT_TOTAL_SPACING_DEGREES = 90f;
 	private static final boolean DEFAULT_CLOSE_ON_CLICK = true;
 	private static final int DEFAULT_EXPAND_DURATION = 400;
+	
+	private static final int RIGHT = 1;
+	private static final int LEFT = 1;
+	private static final boolean DEFAULT_POSITION = false;
+	private static final int DEFAULT_ALIGNMENT = LEFT;
+	
+	
 
 	private Animation mainRotateRight;
 	private Animation mainRotateLeft;
@@ -58,6 +67,10 @@ public class SatelliteMenu extends FrameLayout {
 	private int satelliteDistance = DEFAULT_SATELLITE_DISTANCE;	
 	private int expandDuration = DEFAULT_EXPAND_DURATION;
 	private boolean closeItemsOnClick = DEFAULT_CLOSE_ON_CLICK;
+	
+	///Modified
+	public int alignment = Gravity.LEFT;
+	public boolean isTop = DEFAULT_POSITION;
 
 	public SatelliteMenu(Context context) {
 		super(context);
@@ -84,10 +97,32 @@ public class SatelliteMenu extends FrameLayout {
 			totalSpacingDegree = typedArray.getFloat(R.styleable.SatelliteMenu_totalSpacingDegree, DEFAULT_TOTAL_SPACING_DEGREES);
 			closeItemsOnClick = typedArray.getBoolean(R.styleable.SatelliteMenu_closeOnClick, DEFAULT_CLOSE_ON_CLICK);
 			expandDuration = typedArray.getInt(R.styleable.SatelliteMenu_expandDuration, DEFAULT_EXPAND_DURATION);
+			//isTop = typedArray.getBoolean(R.styleable.SatelliteMenu_isfromtop, DEFAULT_POSITION);
+			
+			String str_alignment = typedArray.getString(R.styleable.SatelliteMenu_alignment);
+			
+			if(str_alignment.equalsIgnoreCase("right")){
+				alignment = Gravity.RIGHT;
+			}else{
+				alignment = Gravity.LEFT;
+			}
+			
+			
+			
+			
+			
 			//float satelliteDistance = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 170, getResources().getDisplayMetrics());
 			typedArray.recycle();
 		}
 		
+		FrameLayout.LayoutParams layoutParams = getLayoutParams(imgMain);
+		if(alignment == Gravity.RIGHT){
+			layoutParams.gravity = Gravity.BOTTOM | Gravity.RIGHT;
+		}else{
+			layoutParams.gravity = Gravity.BOTTOM | Gravity.LEFT;
+		}
+		
+		imgMain.setLayoutParams(layoutParams);
 		
 		mainRotateLeft = SatelliteAnimationCreator.createMainButtonAnimation(context);
 		mainRotateRight = SatelliteAnimationCreator.createMainButtonInverseAnimation(context);
@@ -116,7 +151,7 @@ public class SatelliteMenu extends FrameLayout {
 				SatelliteMenu.this.onClick();
 			}
 		});
-
+		resetItems();
 		internalItemClickListener = new InternalSatelliteOnClickListener(this);
 	}
 
@@ -165,16 +200,35 @@ public class SatelliteMenu extends FrameLayout {
 
 		menuItems.addAll(items);
 		this.removeView(imgMain);
+		
+		
+		
+		
+		
 		TextView tmpView = new TextView(getContext());
 		tmpView.setLayoutParams(new FrameLayout.LayoutParams(0, 0));
 
 		float[] degrees = getDegrees(menuItems.size());
 		int index = 0;
 		for (SatelliteMenuItem menuItem : menuItems) {
-			int finalX = SatelliteAnimationCreator.getTranslateX(
-					degrees[index], satelliteDistance);
-			int finalY = SatelliteAnimationCreator.getTranslateY(
-					degrees[index], satelliteDistance);
+			int finalX;
+			if(alignment == Gravity.LEFT){
+				finalX = SatelliteAnimationCreator.getTranslateX(
+						degrees[index], satelliteDistance);
+			}else{
+			    finalX = SatelliteAnimationCreator.getTranslateX(
+						degrees[index], satelliteDistance) * -1;
+			}
+			
+			int finalY;
+			if(isTop){
+				finalY = SatelliteAnimationCreator.getTranslateY(
+						degrees[index], satelliteDistance) * -1;
+			}else{
+				finalY = SatelliteAnimationCreator.getTranslateY(
+						degrees[index], satelliteDistance);
+			}
+			
 
 			ImageView itemView = (ImageView) LayoutInflater.from(getContext())
 					.inflate(R.layout.sat_item_cr, this, false);
@@ -187,10 +241,23 @@ public class SatelliteMenu extends FrameLayout {
 			cloneView.setOnClickListener(internalItemClickListener);
 			cloneView.setTag(Integer.valueOf(menuItem.getId()));
 			FrameLayout.LayoutParams layoutParams = getLayoutParams(cloneView);
+			FrameLayout.LayoutParams itemlayoutParams = getLayoutParams(itemView);
 			layoutParams.bottomMargin = Math.abs(finalY);
-			layoutParams.leftMargin = Math.abs(finalX);
+			
+			
+			if(alignment == Gravity.LEFT){
+				layoutParams.leftMargin = Math.abs(finalX);
+				
+			}else{
+				layoutParams.rightMargin = Math.abs(finalX);
+				layoutParams.gravity = Gravity.RIGHT | Gravity.BOTTOM;
+				itemlayoutParams.gravity = Gravity.RIGHT | Gravity.BOTTOM;
+			}
+			
+			
+			
 			cloneView.setLayoutParams(layoutParams);
-
+			itemView.setLayoutParams(itemlayoutParams);
 			if (menuItem.getImgResourceId() > 0) {
 				itemView.setImageResource(menuItem.getImgResourceId());
 				cloneView.setImageResource(menuItem.getImgResourceId());
@@ -222,6 +289,7 @@ public class SatelliteMenu extends FrameLayout {
 			index++;
 		}
 
+		
 		this.addView(imgMain);
 	}
 
@@ -281,7 +349,7 @@ public class SatelliteMenu extends FrameLayout {
 			if(menu != null && menu.closeItemsOnClick){
 				menu.close();
 				if(menu.itemClickedListener != null){
-					menu.itemClickedListener.eventOccured(tag);
+					menu.itemClickedListener.eventOccured(tag,menu);
 				}
 			}
 		}		
@@ -454,7 +522,7 @@ public class SatelliteMenu extends FrameLayout {
 		 * 
 		 * @param id The id of the item. 
 		 */
-		public void eventOccured(int id);
+		public void eventOccured(int id, View v);
 	}
 
 	/**

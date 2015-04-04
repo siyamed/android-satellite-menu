@@ -16,28 +16,40 @@ Licenced with LGPL.
 
 Add the component definition to your view xml as in the following example:
 
-
-    <?xml version="1.0" encoding="utf-8"?>
-    <FrameLayout 
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:sat="http://schemas.android.com/apk/res/android.view.ext"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:orientation="vertical" >
-
-        <android.view.ext.SatelliteMenu
-            android:id="@+id/menu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|left" 
-            android:layout_margin="8dp"
-            sat:satelliteDistance="170dp"
-            sat:mainImage="@drawable/ic_launcher"
-            sat:totalSpacingDegree="90"
-            sat:closeOnClick="true"
-            sat:expandDuration="500"/>
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:sat="http://schemas.android.com/apk/res/android.view.ext"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
     
-    </FrameLayout>
+    
+   <LinearLayout 
+       android:layout_height="wrap_content"
+       android:layout_width="wrap_content"
+       android:layout_alignParentBottom="true"
+       android:layout_alignParentLeft="right">
+       
+       <android.view.ext.SatelliteMenu
+        android:id="@+id/menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|left" 
+        android:layout_margin="8dp"
+        sat:satelliteDistance="100dp"
+        sat:mainImage="@drawable/ic_launcher"
+        sat:totalSpacingDegree="90"
+        sat:closeOnClick="true"
+      	sat:alignment="right"
+        sat:expandDuration="500"/>
+       
+   </LinearLayout>
+
+    
+    
+</RelativeLayout>
+
 
 The attributes are:
 
@@ -45,6 +57,7 @@ The attributes are:
 * `totalSpacingDegree` The degree between the first and the last item.
 * `closeOnClick` Defines if the menu shall collapse after clicking on a menu item.
 * `expandDuration` The duration of expand and collapse operations in milliseconds.
+* `alignment` The alignment of the menu right or left. bydefault it will be left.
 
 After defining the view in XML, some menu items can be added from code:
 
@@ -62,10 +75,12 @@ Each menu item takes the ID of the item and the drawable resource for the item.
 
 In order to listen clicks on items:
 
-    menu.setOnItemClickedListener(new SateliteClickedListener() {
-      public void eventOccured(int id) {
-        Log.i("sat", "Clicked on " + id);
-      }
-    });
+      menu.setOnItemClickedListener(new SateliteClickedListener() {
+			@Override
+			public void eventOccured(int id, View v) {
+				// TODO Auto-generated method stub
+				Toast.makeText(getApplicationContext(),"Id = "+id, Toast.LENGTH_SHORT).show();
+			}
+		});
 
 The click event gives the ID of the item which was defined when adding it. 
