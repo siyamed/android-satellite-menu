@@ -5,6 +5,7 @@
 		<attr name="closeOnClick" format="boolean" />
 		<attr name="totalSpacingDegree" format="float" />
 		<attr name="satelliteDistance" format="dimension" />
-		<attr name="mainImage" format="reference" />		
+		<attr name="mainImage" format="reference" />
+		<attr name="alignment" format="string" />
 	</declare-styleable>
 </resources>
