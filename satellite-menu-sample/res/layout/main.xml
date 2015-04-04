@@ -1,21 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout 
+<RelativeLayout 
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:sat="http://schemas.android.com/apk/res/android.view.ext"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" >
-
-    <android.view.ext.SatelliteMenu
+    
+    
+   <LinearLayout 
+       android:layout_height="wrap_content"
+       android:layout_width="wrap_content"
+       android:layout_alignParentBottom="true"
+       android:layout_alignParentRight="true">
+       
+       <android.view.ext.SatelliteMenu
         android:id="@+id/menu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|left" 
         android:layout_margin="8dp"
-        sat:satelliteDistance="170dp"
+        sat:satelliteDistance="100dp"
         sat:mainImage="@drawable/ic_launcher"
         sat:totalSpacingDegree="90"
         sat:closeOnClick="true"
+      	sat:alignment="right"
         sat:expandDuration="500"/>
+       
+   </LinearLayout>
+
     
-</FrameLayout>
+    
+</RelativeLayout>
